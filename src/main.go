@@ -24,12 +24,12 @@ func main() {
 	fmt.Println("start")
 
 	// Prepare the simulation
-	evo.GenPlants(config.TotalPlants)
-	AllGens = append(AllGens, []plant.Plant{})
+	AllPlants = evo.GenPlants() // Gen new blobs
+	AllGens = append(AllGens, []plant.Plant{}) // Add new generation
 
 	// Run every generation
 	for i := 0; i < config.TotalGenerations; i++ {
-		// Simulate blobs
+		// Simulate plants
 		for ID, blob := range AllPlants {
 			sim.SimulatePlant(blob, ID)
 		}
@@ -38,9 +38,9 @@ func main() {
 		SortedPlants := plant.SortByScore(AllGens[len(AllGens) - 1])
 
 		// Render highlights
-		graphics.RenderImage(SortedPlants[0], "worst" + strconv.Itoa(i), "out/highlights/") // Worst performing blob
-		graphics.RenderImage(SortedPlants[int(math.Ceil(float64(len(SortedPlants)) / 2) - 1)], "median" + strconv.Itoa(i), "out/highlights/") // Median performing blob
-		graphics.RenderImage(SortedPlants[len(SortedPlants) - 1], "best" + strconv.Itoa(i), "out/highlights/") // Best performing blob
+		graphics.RenderImage(SortedPlants[0], "worst" + strconv.Itoa(i), "out/highlights/") // Worst performing plant
+		graphics.RenderImage(SortedPlants[int(math.Ceil(float64(len(SortedPlants)) / 2) - 1)], "median" + strconv.Itoa(i), "out/highlights/") // Median performing plant
+		graphics.RenderImage(SortedPlants[len(SortedPlants) - 1], "best" + strconv.Itoa(i), "out/highlights/") // Best performing plant
 
 		// Delete every other plant render
 		if config.HighlightsOnly {
@@ -54,17 +54,17 @@ func main() {
 		}
 
 		// Copy last generation to a new empty generation
-		AllGens = append(AllGens, make([]BlobData, 0))
+		AllGens = append(AllGens, make([]plant.Plant, 0))
 		NextGen := len(AllGens) - 1
-		AllGens[NextGen] = make([]BlobData, len(SortedBlobs))
-		copy(AllGens[NextGen], SortedBlobs)
+		AllGens[NextGen] = make([]plant.Plant, len(SortedPlants))
+		copy(AllGens[NextGen], SortedPlants)
 
-		// Kill worst performing blobs
+		// Kill worst performing plants
 		// Copy the remaining
-		AllGens[NextGen] = KillWorstBlobs(AllGens[NextGen])
+		AllGens[NextGen] = evo.KillWorstPlants(AllGens[NextGen])
 
-		// Generate new blobs by randomizing the last generation
-		AllGens[NextGen] = RandomizeBlobs(AllGens[NextGen])
+		// Generate new plants by randomizing the last generation
+		AllGens[NextGen] = evo.RandomizePlants(AllGens[NextGen])
 
 		// Copy plants over to AllPlants
 		AllPlants = AllGens[NextGen]
