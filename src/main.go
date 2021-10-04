@@ -37,24 +37,20 @@ func main() {
 		// Sort plants results (worst to best)
 		SortedPlants := plant.SortByScore(AllGens[len(AllGens) - 1])
 
+		// Render highlights
+		graphics.RenderImage(SortedPlants[0], "worst" + strconv.Itoa(i), "out/highlights/") // Worst performing blob
+		graphics.RenderImage(SortedPlants[int(math.Ceil(float64(len(SortedPlants)) / 2) - 1)], "median" + strconv.Itoa(i), "out/highlights/") // Median performing blob
+		graphics.RenderImage(SortedPlants[len(SortedPlants) - 1], "best" + strconv.Itoa(i), "out/highlights/") // Best performing blob
+
+		// Delete every other plant render
 		if config.HighlightsOnly {
-			// Delete every other plant render
-			err = os.RemoveAll("out")
+			err = os.RemoveAll("out/all/")
 			helpers.ErrCheck(err)
-
-			// Render highlights
-			graphics.RenderImage(SortedPlants[0], "worst" + strconv.Itoa(i), "out/highlights/") // Worst performing blob
-			graphics.RenderImage(SortedPlants[int(math.Ceil(float64(len(SortedPlants)) / 2) - 1)], "median" + strconv.Itoa(i), "out/highlights/") // Median performing blob
-			graphics.RenderImage(SortedPlants[len(SortedPlants) - 1], "best" + strconv.Itoa(i), "out/highlights/") // Best performing blob
-		} else {
-
 		}
 
 		// Render graphs
 		if config.GenerateGraphs {
-			RenderTreeLineChart(SortedBlobs, "Blob Species Performance") // Render performance tree line chart for species
-			RenderHistogram(SortedBlobs, "Blob Species Performance") // Render performance histograms for species
-			RenderLineChart(SortedBlobs, "Blob Species Improvement") // Render improvement line chart for species
+
 		}
 
 		// Copy last generation to a new empty generation
