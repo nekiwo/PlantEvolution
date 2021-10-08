@@ -24,7 +24,7 @@ func main() {
 	fmt.Println("start")
 
 	// Prepare the simulation
-	AllPlants = evo.GenPlants() // Gen new blobs
+	AllPlants = plant.GenPlants() // Gen new blobs
 	AllGens = append(AllGens, []plant.Plant{}) // Add new generation
 
 	// Run every generation
