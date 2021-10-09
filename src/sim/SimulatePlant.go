@@ -5,5 +5,5 @@ import (
 )
 
 func SimulatePlant(data plant.Plant, ID int) {
-kjhdoiasdh
+
 }

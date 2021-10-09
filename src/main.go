@@ -13,10 +13,6 @@ import (
 	"strconv"
 )
 
-// Global vars:
-var AllGens [][]plant.Plant // All simulated blobs of all time
-var AllPlants []plant.Plant // Plants to be simulated
-
 func main() {
 	//test
 	err := os.RemoveAll("out")
@@ -24,18 +20,18 @@ func main() {
 	fmt.Println("start")
 
 	// Prepare the simulation
-	AllPlants = plant.GenPlants() // Gen new blobs
-	AllGens = append(AllGens, []plant.Plant{}) // Add new generation
+	config.AllPlants = plant.GenPlants() // Gen new blobs
+	config.AllGens = append(config.AllGens, []plant.Plant{}) // Add new generation
 
 	// Run every generation
 	for i := 0; i < config.TotalGenerations; i++ {
 		// Simulate plants
-		for ID, blob := range AllPlants {
+		for ID, blob := range config.AllPlants {
 			sim.SimulatePlant(blob, ID)
 		}
 
 		// Sort plants results (worst to best)
-		SortedPlants := plant.SortByScore(AllGens[len(AllGens) - 1])
+		SortedPlants := plant.SortByScore(config.AllGens[len(config.AllGens) - 1])
 
 		// Render highlights
 		graphics.RenderImage(SortedPlants[0], "worst" + strconv.Itoa(i), "out/highlights/") // Worst performing plant
@@ -54,21 +50,21 @@ func main() {
 		}
 
 		// Copy last generation to a new empty generation
-		AllGens = append(AllGens, make([]plant.Plant, 0))
-		NextGen := len(AllGens) - 1
-		AllGens[NextGen] = make([]plant.Plant, len(SortedPlants))
-		copy(AllGens[NextGen], SortedPlants)
+		config.AllGens = append(config.AllGens, make([]plant.Plant, 0))
+		NextGen := len(config.AllGens) - 1
+		config.AllGens[NextGen] = make([]plant.Plant, len(SortedPlants))
+		copy(config.AllGens[NextGen], SortedPlants)
 
 		// Kill worst performing plants
 		// Copy the remaining
-		AllGens[NextGen] = evo.KillWorstPlants(AllGens[NextGen])
+		config.AllGens[NextGen] = evo.KillWorstPlants(config.AllGens[NextGen])
 
 		// Generate new plants by randomizing the last generation
-		AllGens[NextGen] = evo.RandomizePlants(AllGens[NextGen])
+		config.AllGens[NextGen] = evo.RandomizePlants(config.AllGens[NextGen])
 
 		// Copy plants over to AllPlants
-		AllPlants = AllGens[NextGen]
+		config.AllPlants = config.AllGens[NextGen]
 
-		fmt.Println("gen #" + strconv.Itoa(len(AllGens) - 1) + " done")
+		fmt.Println("gen #" + strconv.Itoa(len(config.AllGens) - 1) + " done")
 	}
 }

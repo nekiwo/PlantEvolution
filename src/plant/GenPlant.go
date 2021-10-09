@@ -1,11 +1,11 @@
 package plant
 
-import "github.com/nekiwo/PlantEvolution/src"
+import "github.com/nekiwo/PlantEvolution/src/config"
 
 
 func GenPlant(ID int) Plant {
 	plant :=  Plant{
-		len(main.AllGens),
+		len(config.AllGens),
 		ID,
 		3,
 		make([]float64, 0),
