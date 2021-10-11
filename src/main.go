@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/nekiwo/PlantEvolution/src/config"
 	"github.com/nekiwo/PlantEvolution/src/evo"
-	"github.com/nekiwo/PlantEvolution/src/graphics"
 	"github.com/nekiwo/PlantEvolution/src/helpers"
 	"github.com/nekiwo/PlantEvolution/src/plant"
 	"github.com/nekiwo/PlantEvolution/src/sim"
@@ -20,7 +19,7 @@ func main() {
 	fmt.Println("start")
 
 	// Prepare the simulation
-	config.AllPlants = plant.GenPlants() // Gen new blobs
+	config.AllPlants = plant.GenPlants() // Gen new plants
 	config.AllGens = append(config.AllGens, []plant.Plant{}) // Add new generation
 
 	// Run every generation
@@ -34,9 +33,9 @@ func main() {
 		SortedPlants := plant.SortByScore(config.AllGens[len(config.AllGens) - 1])
 
 		// Render highlights
-		graphics.RenderImage(SortedPlants[0], "worst" + strconv.Itoa(i), "out/highlights/") // Worst performing plant
-		graphics.RenderImage(SortedPlants[int(math.Ceil(float64(len(SortedPlants)) / 2) - 1)], "median" + strconv.Itoa(i), "out/highlights/") // Median performing plant
-		graphics.RenderImage(SortedPlants[len(SortedPlants) - 1], "best" + strconv.Itoa(i), "out/highlights/") // Best performing plant
+		sim.SimulatePlant(SortedPlants[0], "highlights/worst" + strconv.Itoa(i), ) // Worst performing plant
+		sim.SimulatePlant(SortedPlants[int(math.Ceil(float64(len(SortedPlants)) / 2) - 1)], "highlights/median" + strconv.Itoa(i)) // Median performing plant
+		sim.SimulatePlant(SortedPlants[len(SortedPlants) - 1], "highlights/best" + strconv.Itoa(i)) // Best performing plant
 
 		// Delete every other plant render
 		if config.HighlightsOnly {
