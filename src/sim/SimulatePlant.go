@@ -3,14 +3,15 @@ package sim
 import (
 	"github.com/nekiwo/PlantEvolution/src/config"
 	"github.com/nekiwo/PlantEvolution/src/plant"
+	"github.com/fogleman/gg"
 )
 
 func SimulatePlant(data plant.Plant, ID interface{}) {
 	SimulatedPlant := data
 
-	for i := 0; i < config.TotalRays; i++ {
+	for i := 0; i < 360; i += 360 / config.TotalRays {
 
-		RayIntersectionCheck()
+		CastRay(gg.Radians(float64(i)))
 		// shoot ray from the sun
 		// if intersecting a wall/boundary/plant
 		// 		if colliding with the boundaries
