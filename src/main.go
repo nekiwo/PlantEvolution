@@ -25,8 +25,8 @@ func main() {
 	// Run every generation
 	for i := 0; i < config.TotalGenerations; i++ {
 		// Simulate plants
-		for ID, blob := range config.AllPlants {
-			sim.SimulatePlant(blob, ID)
+		for ID, plnt := range config.AllPlants {
+			sim.SimulatePlant(plnt, ID)
 		}
 
 		// Sort plants results (worst to best)
