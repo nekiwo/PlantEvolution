@@ -7,7 +7,6 @@ import (
 	"github.com/nekiwo/PlantEvolution/src/helpers"
 	"github.com/nekiwo/PlantEvolution/src/plant"
 	"github.com/nekiwo/PlantEvolution/src/sim"
-	"math"
 	"os"
 	"strconv"
 )
@@ -34,7 +33,7 @@ func main() {
 
 		// Render highlights
 		sim.SimulatePlant(SortedPlants[0], "highlights/worst" + strconv.Itoa(i), ) // Worst performing plant
-		sim.SimulatePlant(SortedPlants[int(math.Ceil(float64(len(SortedPlants)) / 2) - 1)], "highlights/median" + strconv.Itoa(i)) // Median performing plant
+		sim.SimulatePlant(SortedPlants[helpers.MedianIndex(len(SortedPlants))], "highlights/median" + strconv.Itoa(i)) // Median performing plant
 		sim.SimulatePlant(SortedPlants[len(SortedPlants) - 1], "highlights/best" + strconv.Itoa(i)) // Best performing plant
 
 		// Delete every other plant render

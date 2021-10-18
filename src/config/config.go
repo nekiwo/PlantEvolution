@@ -21,6 +21,8 @@ const HighlightsOnly bool = true // Keep images of only median, most, and least 
 const GenerateGraphs bool = false // Keep image graphs for the results
 const ShowRays bool = true // Show light rays for debugging
 
+
+
 // Global vars:
 var AllGens [][]plant.Plant // All simulated plants of all generations
 var AllPlants []plant.Plant // Plants to be simulated

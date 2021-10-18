@@ -1,5 +1,5 @@
-package main
+package helpers
 
-func main() {
-	$END$
+func CalcDist() {
+
 }

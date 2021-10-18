@@ -26,15 +26,9 @@ func SimulatePlant(data plant.Plant, ID interface{}) {
 		// repeat the process, but starting from the hit point
 		// send data for rendering
 
-		CosI := math.Cos(gg.Radians(float64(i)))
-		AdjPixelX := int(math.Floor(CosI))
-
-		SinI := math.Sin(gg.Radians(float64(i)))
-		AdjPixelY := int(math.Floor(SinI))
-
 		rays = append(rays, CastRay([2][2]int{
-			{config.SimBox.Sun[0], config.SimBox.Sun[1]},
-			{config.SimBox.Sun[0] + AdjPixelX, config.SimBox.Sun[1] + AdjPixelY},
+			{config.SimBox.Sun[0], config.SimBox.Sun[1]}, // origin
+			helpers.DegreeToPoint(i), // direction
 		}))
 	}
 }

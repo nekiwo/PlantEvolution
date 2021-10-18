@@ -1,5 +1,5 @@
-package main
+package sim
 
-func main() {
-	$END$
+func GetHitPoint() {
+
 }
