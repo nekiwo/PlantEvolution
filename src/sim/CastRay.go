@@ -31,13 +31,13 @@ func CastRay(ray [2][2]int) [][2]int {
 		}
 
 		for _, segment := range ConvertedRotations {
-			OverwriteRecord(&ray, &segment, &record, &RecordType, "plant")
+			OverwriteRecord(&ray, &segment, &record, &RecordType, &RayPolygon, "plant")
 		}
 		for _, segment := range config.SimBox.Segments {
-			OverwriteRecord(&ray, &segment, &record, &RecordType, "box")
+			OverwriteRecord(&ray, &segment, &record, &RecordType, &RayPolygon, "box")
 		}
 		for _, segment := range ImageBorders {
-			OverwriteRecord(&ray, &segment, &record, &RecordType, "border")
+			OverwriteRecord(&ray, &segment, &record, &RecordType, &RayPolygon, "border")
 		}
 
 		switch RecordType {
@@ -56,4 +56,6 @@ func CastRay(ray [2][2]int) [][2]int {
 
 		}
 	}
+
+	return RayPolygon
 }

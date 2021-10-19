@@ -4,8 +4,6 @@ import (
 	"github.com/nekiwo/PlantEvolution/src/config"
 	"github.com/nekiwo/PlantEvolution/src/helpers"
 	"github.com/nekiwo/PlantEvolution/src/plant"
-	"github.com/fogleman/gg"
-	"math"
 )
 
 func SimulatePlant(data plant.Plant, ID interface{}) {
