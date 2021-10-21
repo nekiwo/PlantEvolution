@@ -14,6 +14,7 @@ const SegmentLength float64 = 200 // Length of each plant segment (pixels)
 
 // Simulation/Physics Config:
 const TotalRays int = 45 // Amount of rays the sun shoots out
+const PointsGoal float64 = 5 // Points needed to gain/lose a segment
 var SimBox box.Box = box.LabyrinthEasy // Chosen box for the simulation
 
 // Output Config:

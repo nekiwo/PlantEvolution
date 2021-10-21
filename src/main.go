@@ -25,16 +25,17 @@ func main() {
 	for i := 0; i < config.TotalGenerations; i++ {
 		// Simulate plants
 		for ID, plnt := range config.AllPlants {
-			sim.SimulatePlant(plnt, ID)
+			plnt := plnt // Scope magic to get pointer
+			sim.SimulatePlant(&plnt, "g" + strconv.Itoa(len(config.AllGens)) + "p" + strconv.Itoa(ID))
 		}
 
 		// Sort plants results (worst to best)
 		SortedPlants := plant.SortByScore(config.AllGens[len(config.AllGens) - 1])
 
 		// Render highlights
-		sim.SimulatePlant(SortedPlants[0], "highlights/worst" + strconv.Itoa(i), ) // Worst performing plant
-		sim.SimulatePlant(SortedPlants[helpers.MedianIndex(len(SortedPlants))], "highlights/median" + strconv.Itoa(i)) // Median performing plant
-		sim.SimulatePlant(SortedPlants[len(SortedPlants) - 1], "highlights/best" + strconv.Itoa(i)) // Best performing plant
+		sim.SimulatePlant(&SortedPlants[0], "highlights/worst" + strconv.Itoa(i), ) // Worst performing plant
+		sim.SimulatePlant(&SortedPlants[helpers.MedianIndex(len(SortedPlants))], "highlights/median" + strconv.Itoa(i)) // Median performing plant
+		sim.SimulatePlant(&SortedPlants[len(SortedPlants) - 1], "highlights/best" + strconv.Itoa(i)) // Best performing plant
 
 		// Delete every other plant render
 		if config.HighlightsOnly {
@@ -57,8 +58,8 @@ func main() {
 		// Copy the remaining
 		config.AllGens[NextGen] = evo.KillWorstPlants(config.AllGens[NextGen])
 
-		// Generate new plants by randomizing the last generation
-		config.AllGens[NextGen] = evo.RandomizePlants(config.AllGens[NextGen])
+		// Generate new plants by adding/subtracting segments from the last generation plants
+		config.AllGens[NextGen] = evo.RegulateSegments(config.AllGens[NextGen])
 
 		// Copy plants over to AllPlants
 		config.AllPlants = config.AllGens[NextGen]

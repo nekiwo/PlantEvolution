@@ -6,15 +6,14 @@ import (
 	"github.com/nekiwo/PlantEvolution/src/plant"
 )
 
-func CastRay(ray [2][2]int) [][2]int {
+func CastRay(ray [2][2]int, data *plant.Plant) [][2]int {
 	ImageBorders := [][2][2]int{
 		{{0, 0}, {1080, 0}},
 		{{1080, 0}, {1080, 1920}},
 		{{1080, 1920}, {0, 1920}},
 		{{0, 1920}, {0, 0}},
 	}
-	ConvertedRotations := plant.ConvertToPoints(config.AllPlants[len(config.AllPlants) - 1].Segments)
-	LatestPlant := config.AllPlants[len(config.AllPlants) - 1]
+	ConvertedRotations := plant.ConvertToPoints(data.Segments)
 
 	RayPolygon := make([][2]int, 0)
 	RayPolygon = append(RayPolygon, ray[0])
@@ -42,18 +41,18 @@ func CastRay(ray [2][2]int) [][2]int {
 
 		switch RecordType {
 			case "plant":
-				LatestPlant.Points += PointsToBeGiven
+				data.Points += PointsToBeGiven
 				EndLoop = true
 				break
 			case "box":
 				SegmentAngle := helpers.SlopeToDegree(helpers.Slope(RecordSegment))
-
 				ray[0] = RayPolygon[len(RayPolygon) - 1]
-				ray[1] = helpers.DegreeToPoint(-helpers.PointToDegree(ray[1]) + 360 + SegmentAngle) // Reflect off the surface
+				ray[1] = helpers.DegreeToPoint(-helpers.PointToDegree(ray[1]) + 360 + float64(SegmentAngle), 1) // Reflect off the surface
 				PointsToBeGiven -= 0.25
 				break
 			case "border":
-
+				// Absorb the wave and do nothing
+				EndLoop = true
 		}
 	}
 
