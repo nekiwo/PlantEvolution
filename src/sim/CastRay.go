@@ -4,6 +4,7 @@ import (
 	"github.com/nekiwo/PlantEvolution/src/config"
 	"github.com/nekiwo/PlantEvolution/src/helpers"
 	"github.com/nekiwo/PlantEvolution/src/plant"
+	"math"
 )
 
 func CastRay(ray [2][2]int, data *plant.Plant) [][2]int {
@@ -19,7 +20,7 @@ func CastRay(ray [2][2]int, data *plant.Plant) [][2]int {
 	RayPolygon = append(RayPolygon, ray[0])
 
 	PointsToBeGiven := 1.00
-	record := 9999.00
+	record := math.Inf(1)
 	RecordType := "none"
 	RecordSegment := [2][2]int{{0, 0}, {0, 0}}
 

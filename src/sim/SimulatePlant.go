@@ -26,7 +26,7 @@ func SimulatePlant(data *plant.Plant, ID string) {
 
 		rays = append(rays, CastRay([2][2]int{
 			{config.SimBox.Sun[0], config.SimBox.Sun[1]}, // origin
-			helpers.DegreeToPoint(i), // direction
+			helpers.DegreeToPoint(float64(i), 1), // direction
 		}, data))
 	}
 
