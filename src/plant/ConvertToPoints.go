@@ -7,7 +7,7 @@ import (
 
 func ConvertToPoints(rotations []float64) [][2][2]int {
 	points := make([][2][2]int, 0)
-	LastPoint := [2]int{540, 0}
+	LastPoint := [2]int{config.ImageBorders[1][1][0] / 2, 0} // Bottom middle of the image
 
 	for _, rot := range rotations {
 		points = append(points, [2][2]int{

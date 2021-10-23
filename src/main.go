@@ -26,14 +26,14 @@ func main() {
 		// Simulate plants
 		for ID, plnt := range config.AllPlants {
 			plnt := plnt // Scope magic to get pointer
-			sim.SimulatePlant(&plnt, "g" + strconv.Itoa(len(config.AllGens)) + "p" + strconv.Itoa(ID))
+			sim.SimulatePlant(&plnt, "all/g" + strconv.Itoa(len(config.AllGens)) + "p" + strconv.Itoa(ID))
 		}
 
 		// Sort plants results (worst to best)
 		SortedPlants := plant.SortByScore(config.AllGens[len(config.AllGens) - 1])
 
 		// Render highlights
-		sim.SimulatePlant(&SortedPlants[0], "highlights/worst" + strconv.Itoa(i), ) // Worst performing plant
+		sim.SimulatePlant(&SortedPlants[0], "highlights/worst" + strconv.Itoa(i)) // Worst performing plant
 		sim.SimulatePlant(&SortedPlants[helpers.MedianIndex(len(SortedPlants))], "highlights/median" + strconv.Itoa(i)) // Median performing plant
 		sim.SimulatePlant(&SortedPlants[len(SortedPlants) - 1], "highlights/best" + strconv.Itoa(i)) // Best performing plant
 

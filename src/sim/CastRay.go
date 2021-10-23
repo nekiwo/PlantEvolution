@@ -8,12 +8,6 @@ import (
 )
 
 func CastRay(ray [2][2]int, data *plant.Plant) [][2]int {
-	ImageBorders := [][2][2]int{
-		{{0, 0}, {1080, 0}},
-		{{1080, 0}, {1080, 1920}},
-		{{1080, 1920}, {0, 1920}},
-		{{0, 1920}, {0, 0}},
-	}
 	ConvertedRotations := plant.ConvertToPoints(data.Segments)
 
 	RayPolygon := make([][2]int, 0)
@@ -36,7 +30,7 @@ func CastRay(ray [2][2]int, data *plant.Plant) [][2]int {
 		for _, segment := range config.SimBox.Segments {
 			OverwriteRecord(&ray, &segment, &record, &RecordType, &RayPolygon, "box")
 		}
-		for _, segment := range ImageBorders {
+		for _, segment := range config.ImageBorders {
 			OverwriteRecord(&ray, &segment, &record, &RecordType, &RayPolygon, "border")
 		}
 
