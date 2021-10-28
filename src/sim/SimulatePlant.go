@@ -7,7 +7,7 @@ import (
 	"github.com/nekiwo/PlantEvolution/src/plant"
 )
 
-func SimulatePlant(data *plant.Plant, ID string) {
+func SimulatePlant(data *plant.Plant, directory, ID string) {
 	rays := make([][][2]int, 0)
 
 	for i := 0; i < 360; i += 360 / config.TotalRays {
@@ -17,5 +17,5 @@ func SimulatePlant(data *plant.Plant, ID string) {
 		}, data))
 	}
 
-	graphics.RenderImage(*data, rays, ID)
+	graphics.RenderImage(*data, rays, directory, ID)
 }

@@ -1,18 +1,20 @@
 package graphics
 
 import (
+	"fmt"
 	"github.com/fogleman/gg"
 	"github.com/nekiwo/PlantEvolution/src/config"
 	"github.com/nekiwo/PlantEvolution/src/helpers"
 	"github.com/nekiwo/PlantEvolution/src/plant"
+	"os"
 )
 
-func RenderImage(data plant.Plant, rays [][][2]int, directory string) {
+func RenderImage(data plant.Plant, rays [][][2]int, directory string, FileName string) {
 	ImageDimen := [2]float64{float64(config.ImageBorders[1][1][0]), float64(config.ImageBorders[1][1][1])}
 	draw := gg.NewContext(int(ImageDimen[0]), int(ImageDimen[1]))
 
 	// Draw background
-	draw.SetHexColor("#ffffff")
+	draw.SetHexColor("#99daff")
 	draw.DrawRectangle(0, 0, ImageDimen[0], ImageDimen[1])
 	draw.Fill()
 
@@ -20,6 +22,7 @@ func RenderImage(data plant.Plant, rays [][][2]int, directory string) {
 
 	for _, segment := range ConvertedRotations {
 		DrawSegment(draw, segment, "#42ff6e")
+		fmt.Println(segment)
 	}
 	for _, segment := range config.SimBox.Segments {
 		DrawSegment(draw, segment, "#ffb742")
@@ -28,6 +31,10 @@ func RenderImage(data plant.Plant, rays [][][2]int, directory string) {
 		DrawSegment(draw, segment, "#4261ff")
 	}
 
-	err := draw.SavePNG("out/" + directory + ".png")
+	// Create directory
+	err := os.MkdirAll("out/" + directory, os.ModePerm)
+	helpers.ErrCheck(err)
+
+	err = draw.SavePNG("out/" + directory + FileName + ".png")
 	helpers.ErrCheck(err)
 }
