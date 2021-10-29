@@ -38,16 +38,22 @@ func CastRay(ray [2][2]int, data *plant.Plant) [][2]int {
 			case "plant":
 				data.Points += PointsToBeGiven
 				EndLoop = true
+				//fmt.Println("plant")
 				break
 			case "box":
 				SegmentAngle := helpers.SlopeToDegree(helpers.Slope(RecordSegment))
 				ray[0] = RayPolygon[len(RayPolygon) - 1]
 				ray[1] = helpers.DegreeToPoint(-helpers.PointToDegree(ray[1]) + 360 + float64(SegmentAngle), 1) // Reflect off the surface
 				PointsToBeGiven -= 0.25
+				//fmt.Println("box")
 				break
 			case "border":
 				// Absorb the wave and do nothing
 				EndLoop = true
+				//fmt.Println("border")
+				break
+			default:
+				//fmt.Println("out")
 		}
 	}
 

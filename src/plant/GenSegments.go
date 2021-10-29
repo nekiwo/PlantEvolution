@@ -1,6 +1,8 @@
 package plant
 
-import "math/rand"
+import (
+	"math/rand"
+)
 
 func GenSegments(segments []float64, amount int) []float64 {
 	NewSegments := segments

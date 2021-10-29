@@ -1,7 +1,6 @@
 package graphics
 
 import (
-	"fmt"
 	"github.com/fogleman/gg"
 	"github.com/nekiwo/PlantEvolution/src/config"
 	"github.com/nekiwo/PlantEvolution/src/helpers"
@@ -21,14 +20,22 @@ func RenderImage(data plant.Plant, rays [][][2]int, directory string, FileName s
 	ConvertedRotations := plant.ConvertToPoints(data.Segments)
 
 	for _, segment := range ConvertedRotations {
-		DrawSegment(draw, segment, "#42ff6e")
-		fmt.Println(segment)
+		DrawSegment(draw, segment, "#228f3c")
 	}
 	for _, segment := range config.SimBox.Segments {
-		DrawSegment(draw, segment, "#ffb742")
+		DrawSegment(draw, segment, "#ba842d")
 	}
 	for _, segment := range config.ImageBorders {
 		DrawSegment(draw, segment, "#4261ff")
+	}
+
+	for _, polygon := range rays {
+		for i := 0; i < len(polygon) - 1; i++ {
+			DrawSegment(draw, [2][2]int{
+				polygon[i],
+				polygon[i + 1],
+			}, "#4261ff")
+		}
 	}
 
 	// Create directory

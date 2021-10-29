@@ -30,7 +30,10 @@ func main() {
 
 		// Sort plants results in ascending order
 		SortedPlants := plant.SortByScore(plant.AllPlants)
-		plant.AllGens = append(plant.AllGens, SortedPlants) // Add new generation
+		if len(plant.AllGens) != 0 {
+			plant.AllGens = plant.AllGens[:len(plant.AllGens) - 1] // Remove generation without points
+		}
+		plant.AllGens = append(plant.AllGens, SortedPlants) // Add generation with points
 
 		// Render highlights
 		sim.SimulatePlant(&SortedPlants[0], "highlights/", "worst" + strconv.Itoa(i)) // Worst performing plant
@@ -63,6 +66,7 @@ func main() {
 
 		// Copy plants over to AllPlants
 		plant.AllPlants = plant.AllGens[NextGen]
+
 
 		fmt.Println("gen #" + strconv.Itoa(len(plant.AllGens) - 1) + " done")
 	}
