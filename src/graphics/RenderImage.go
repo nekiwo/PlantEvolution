@@ -34,7 +34,7 @@ func RenderImage(data plant.Plant, rays [][][2]int, directory string, FileName s
 			DrawSegment(draw, [2][2]int{
 				polygon[i],
 				polygon[i + 1],
-			}, "#4261ff")
+			}, "#ff0000")
 		}
 	}
 

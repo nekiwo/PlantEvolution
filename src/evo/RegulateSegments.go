@@ -1,7 +1,6 @@
 package evo
 
 import (
-	"fmt"
 	"github.com/nekiwo/PlantEvolution/src/config"
 	"github.com/nekiwo/PlantEvolution/src/plant"
 	"math"
@@ -21,13 +20,13 @@ func RegulateSegments(data []plant.Plant) []plant.Plant {
 			}
 		} else {
 			// Remove a segment from the plant
-			NewData[i].Segments = plnt.Segments[:len(plnt.Segments) - 1]
+			NewData[i].Segments = plnt.Segments[:int(math.Max(float64(len(plnt.Segments)), 2)) - 1]
 		}
 	}
 
-	for _, p := range NewData {
+	/*for _, p := range NewData {
 		fmt.Println(len(p.Segments))
-	}
+	}*/
 
 	return NewData
 }
