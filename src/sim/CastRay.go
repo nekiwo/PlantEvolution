@@ -5,7 +5,6 @@ import (
 	"github.com/nekiwo/PlantEvolution/src/config"
 	"github.com/nekiwo/PlantEvolution/src/helpers"
 	"github.com/nekiwo/PlantEvolution/src/plant"
-	"math"
 )
 
 func CastRay(ray [2][2]int, data *plant.Plant) [][2]int {
@@ -15,7 +14,7 @@ func CastRay(ray [2][2]int, data *plant.Plant) [][2]int {
 	RayPolygon = append(RayPolygon, ray[0])
 
 	PointsToBeGiven := 1.00
-	record := math.Inf(1)
+	record := 2000.0
 	RecordType := "none"
 	RecordSegment := [2][2]int{{0, 0}, {0, 0}}
 
@@ -25,31 +24,31 @@ func CastRay(ray [2][2]int, data *plant.Plant) [][2]int {
 			EndLoop = true
 		}
 
+		for _, segment := range config.ImageBorders {
+			OverwriteRecord(ray, segment, &record, &RecordType, &RayPolygon, "border")
+		}
 		for _, segment := range ConvertedRotations {
 			OverwriteRecord(ray, segment, &record, &RecordType, &RayPolygon, "plant")
 		}
 		for _, segment := range config.SimBox.Segments {
 			OverwriteRecord(ray, segment, &record, &RecordType, &RayPolygon, "box")
 		}
-		for _, segment := range config.ImageBorders {
-			OverwriteRecord(ray, segment, &record, &RecordType, &RayPolygon, "border")
-		}
 
 		switch RecordType {
 			case "plant":
-				//fmt.Println("plant")
+				fmt.Println("plant")
 				data.Points += PointsToBeGiven
 				EndLoop = true
 				break
 			case "box":
-				fmt.Println("box")
+				//fmt.Println("box")
 				SegmentAngle := helpers.SlopeToDegree(helpers.Slope(RecordSegment))
 				ray[0] = RayPolygon[len(RayPolygon) - 1]
-				ray[1] = helpers.DegreeToPoint(-helpers.PointToDegree(ray[1]) + 360 + float64(SegmentAngle), 1) // Reflect off the surface
+				ray[1] = helpers.DegreeToPoint(-helpers.PointToDegree(ray[1]) + 360 + float64(SegmentAngle), 2000) // Reflect off the surface
 				PointsToBeGiven -= 0.25
 				break
 			case "border":
-				fmt.Println("border")
+				//fmt.Println("border")
 				// Absorb the wave and do nothing
 				EndLoop = true
 				break

@@ -1,10 +1,12 @@
 package graphics
 
 import (
+	"encoding/hex"
 	"github.com/fogleman/gg"
 	"github.com/nekiwo/PlantEvolution/src/config"
 	"github.com/nekiwo/PlantEvolution/src/helpers"
 	"github.com/nekiwo/PlantEvolution/src/plant"
+	"math/rand"
 	"os"
 )
 
@@ -30,11 +32,12 @@ func RenderImage(data plant.Plant, rays [][][2]int, directory string, FileName s
 	}
 
 	for _, polygon := range rays {
+		GenColor, _ := randomHex(3)
 		for i := 0; i < len(polygon) - 1; i++ {
 			DrawSegment(draw, [2][2]int{
 				polygon[i],
 				polygon[i + 1],
-			}, "#ff0000")
+			}, "#" + GenColor)
 		}
 	}
 
@@ -44,4 +47,12 @@ func RenderImage(data plant.Plant, rays [][][2]int, directory string, FileName s
 
 	err = draw.SavePNG("out/" + directory + FileName + ".png")
 	helpers.ErrCheck(err)
+}
+
+func randomHex(n int) (string, error) {
+	bytes := make([]byte, n)
+	if _, err := rand.Read(bytes); err != nil {
+		return "", err
+	}
+	return hex.EncodeToString(bytes), nil
 }
