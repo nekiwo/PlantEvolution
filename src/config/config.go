@@ -15,7 +15,7 @@ const PointsPerSegment float64 = 5 // Points needed to gain/lose a segment
 const PointsThreshold float64 = 5 // Point threshold needed to be achieved to get at least 1 segment
 
 // Simulation/Physics Config:
-const TotalRays int = 50 // Amount of rays the sun shoots out
+const TotalRays int = 45 // Amount of rays the sun shoots out
 var SimBox box.Box = box.LabyrinthEasy // Chosen box for the simulation
 var ImageBorders [][2][2]int = [][2][2]int{
 	{{0, 0}, {1080, 0}},

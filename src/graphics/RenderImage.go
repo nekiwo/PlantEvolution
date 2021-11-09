@@ -32,12 +32,12 @@ func RenderImage(data plant.Plant, rays [][][2]int, directory string, FileName s
 	}
 
 	for _, polygon := range rays {
-		GenColor, _ := randomHex(3)
+		hexcolor, _ := randomHex(3)
 		for i := 0; i < len(polygon) - 1; i++ {
 			DrawSegment(draw, [2][2]int{
 				polygon[i],
 				polygon[i + 1],
-			}, "#" + GenColor)
+			}, "#" + hexcolor)
 		}
 	}
 
