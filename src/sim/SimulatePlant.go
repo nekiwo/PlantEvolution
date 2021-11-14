@@ -13,7 +13,7 @@ func SimulatePlant(data *plant.Plant, directory, ID string) {
 	for i := 0; i < 360; i += 360 / config.TotalRays {
 		rays = append(rays, CastRay([2][2]int{
 			{config.SimBox.Sun[0], config.SimBox.Sun[1]}, // origin
-			helpers.DegreeToPoint(float64(i), 2000), // direction
+			helpers.DegreeToPoint(float64(i) - 180, 2000), // direction
 		}, data))
 	}
 

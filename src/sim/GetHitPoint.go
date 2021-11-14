@@ -1,11 +1,10 @@
 package sim
 
 import (
-	"fmt"
 	"math"
 )
 
-func GetHitPoint(ray [2][2]int, segment [2][2]int, test *string) [2]int {
+func GetHitPoint(ray [2][2]int, segment [2][2]int) [2]int {
 	HitPoint := [2]int{ray[0][0] + ray[1][0], ray[0][1] + ray[1][1]}
 
 	// Segment
@@ -36,11 +35,6 @@ func GetHitPoint(ray [2][2]int, segment [2][2]int, test *string) [2]int {
 			int(math.Round(x1 + t * (x2 - x1))),
 			int(math.Round(y1 + t * (y2 - y1))),
 		}
-		/*fmt.Println("========")
-		fmt.Println(x1,y1,x2,y2)
-		fmt.Println(x3,y3,x4,y4)
-		fmt.Println(t,u,d)*/
-		fmt.Println(*test)
 	}
 
 	return HitPoint

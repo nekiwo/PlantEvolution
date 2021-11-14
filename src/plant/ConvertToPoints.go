@@ -12,7 +12,7 @@ func ConvertToPoints(rotations []float64) [][2][2]int {
 	for _, rot := range rotations {
 		points = append(points, [2][2]int{
 			LastPoint,
-			helpers.AddPoints(LastPoint, helpers.DegreeToPoint(rot, config.SegmentLength)),
+			helpers.AddPoints(LastPoint, helpers.DegreeToPoint(rot - 180, config.SegmentLength)),
 		})
 		LastPoint = points[len(points) - 1][1]
 	}

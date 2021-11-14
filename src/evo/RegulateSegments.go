@@ -10,23 +10,20 @@ func RegulateSegments(data []plant.Plant) []plant.Plant {
 	NewData := data
 
 	for i, plnt := range NewData {
-		if plnt.Points > config.PointsThreshold {
+		RequiredPoints := config.PointsToSustain * float64(len(plnt.Segments)) // Points needed to sustain every segment
+		if plnt.Points > RequiredPoints {
 			// Count new segments from points
-			NewSegments := int((plnt.Points - math.Mod(plnt.Points, config.PointsPerSegment)) / config.PointsPerSegment)
+			NewSegments := math.Floor((plnt.Points - RequiredPoints) / config.PointsToGrow)
+			AdjustedNum := int(math.Min(NewSegments, float64(config.MaxSegments)))
 
 			// Add new segments to plant
-			if len(plnt.Segments) + NewSegments < config.MaxSegments {
-				NewData[i].Segments = plant.GenSegments(plnt.Segments, NewSegments)
-			}
+			NewData[i].Segments = plant.GenSegments(plnt.Segments, AdjustedNum)
 		} else {
-			// Remove a segment from the plant
-			NewData[i].Segments = plnt.Segments[:int(math.Max(float64(len(plnt.Segments)), 2)) - 1]
+			// Remove segments from the plant
+			SustainedSegments := int(math.Max(math.Floor(plnt.Points / config.PointsToSustain), 1))
+			NewData[i].Segments = plnt.Segments[:SustainedSegments]
 		}
 	}
-
-	/*for _, p := range NewData {
-		fmt.Println(len(p.Segments))
-	}*/
 
 	return NewData
 }
