@@ -1,11 +1,11 @@
-package sim
+package helpers
 
 import (
 	"math"
 )
 
 func GetHitPoint(ray [2][2]int, segment [2][2]int) [2]int {
-	HitPoint := [2]int{ray[0][0] + ray[1][0], ray[0][1] + ray[1][1]}
+	HitPoint := AddPoints(ray[0], ray[1])
 
 	// Segment
 	x1 := float64(segment[0][0])

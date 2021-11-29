@@ -46,13 +46,13 @@ func CastRay(ray [2][2]int, data *plant.Plant) [][2]int {
 					float64(RecordSegment[1][0] - RecordSegment[0][0]),
 				) - math.Pi / 2
 				RayAngle := -helpers.Atan2(
-					float64((RecordSegment[1][1] + ray[1][1]) - (RecordSegment[0][1] + ray[0][1])),
-					float64((RecordSegment[1][0] + ray[1][0]) - (RecordSegment[0][0] + ray[0][0])),
+					float64(ray[1][1]),
+					float64(ray[1][0]),
 				) + math.Pi / 2
 
 				// Change the ray to its reflection
 				ray[0] = RayPolygon[len(RayPolygon) - 1]
-				ray[1] = helpers.RadianToPoint(-RayAngle + 2 * SegmentAngle, 2000) // Reflect off the surface
+				ray[1] = helpers.RadianToPoint(-RayAngle + 2 * SegmentAngle, 500) // Reflect off the surface
 
 				RayPolygon = append(RayPolygon, ray[0])
 

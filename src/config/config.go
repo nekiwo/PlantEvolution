@@ -16,7 +16,7 @@ const PointsToGrow float64 = 1 // Points needed to gain a segment
 const PointsToSustain float64 = 0.75 // Points needed to sustain an existing segment
 
 // Simulation/Physics Config:
-const TotalRays int = 90 // Amount of rays the sun shoots out
+const TotalRays int = 200 // Amount of rays the sun shoots out
 var SimBox box.Box = box.LabyrinthEasy // Chosen box for the simulation
 var ImageBorders [][2][2]int = [][2][2]int{
 	{{0, 0}, {1080, 0}},

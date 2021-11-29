@@ -5,7 +5,7 @@ import (
 )
 
 func OverwriteRecord(ray [2][2]int, segment [2][2]int, record *float64, RecordType *string, RecordSegment *[2][2]int, RayPolygon *[][2]int, CurrentType string) {
-	HitPoint := GetHitPoint(ray, segment)
+	HitPoint := helpers.GetHitPoint(ray, segment)
 	HitDist := helpers.CalcDist(ray[0], HitPoint)
 	if HitDist < *record {
 		*record = HitDist

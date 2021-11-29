@@ -6,7 +6,6 @@ import (
 	"github.com/nekiwo/PlantEvolution/src/config"
 	"github.com/nekiwo/PlantEvolution/src/helpers"
 	"github.com/nekiwo/PlantEvolution/src/plant"
-	"math/rand"
 	"os"
 )
 
@@ -22,13 +21,13 @@ func RenderImage(data plant.Plant, rays [][][2]int, directory string, FileName s
 	ConvertedRotations := plant.ConvertToPoints(data.Segments)
 
 	for _, segment := range ConvertedRotations {
-		DrawSegment(draw, segment, "#228f3c")
+		DrawSegment(draw, segment, "#228f3c", 12)
 	}
 	for _, segment := range config.SimBox.Segments {
-		DrawSegment(draw, segment, "#ba842d")
+		DrawSegment(draw, segment, "#ba842d", 12)
 	}
 	for _, segment := range config.ImageBorders {
-		DrawSegment(draw, segment, "#4261ff")
+		DrawSegment(draw, segment, "#4261ff", 10)
 	}
 
 	for _, polygon := range rays {
@@ -37,7 +36,7 @@ func RenderImage(data plant.Plant, rays [][][2]int, directory string, FileName s
 			DrawSegment(draw, [2][2]int{
 				polygon[i],
 				polygon[i + 1],
-			}, "#" + hexcolor)
+			}, "#ff9100", 2)
 		}
 	}
 
