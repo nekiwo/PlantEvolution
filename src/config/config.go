@@ -8,7 +8,6 @@ import (
 const TotalPlants int = 10 // Total amount of plants each generation
 const TotalGenerations int = 10 // Total number of generation cycles to be simulated
 
-
 // Plant Config:
 const SegmentLength float64 = 100 // Length of each plant segment (pixels)
 const MaxSegments int = 30 // Max segments that can be earned
@@ -29,3 +28,6 @@ var ImageBorders [][2][2]int = [][2][2]int{
 const HighlightsOnly bool = false // Keep images of only median, most, and least successful plants (every generation)
 const GenerateGraphs bool = false // Keep image graphs for the results
 const ShowRays bool = true // Show light rays for debugging
+
+var Test1 [][2]int = [][2]int{}
+var Test2 []string = []string{}

@@ -23,13 +23,13 @@ func CastRay(ray [2][2]int, data *plant.Plant) [][2]int {
 	EndLoop := false
 	for !EndLoop {
 		for _, segment := range ConvertedRotations {
-			OverwriteRecord(ray, segment, &record, &RecordType, &RecordSegment, &RayPolygon, "plant")
+			OverwriteRecord(ray, segment, &record, &RecordType, &RecordSegment, &RayPolygon, "plant", &config.Test1, &config.Test2)
 		}
 		for _, segment := range config.ImageBorders {
-			OverwriteRecord(ray, segment, &record, &RecordType, &RecordSegment, &RayPolygon, "border")
+			OverwriteRecord(ray, segment, &record, &RecordType, &RecordSegment, &RayPolygon, "border", &config.Test1, &config.Test2)
 		}
 		for _, segment := range config.SimBox.Segments {
-			OverwriteRecord(ray, segment, &record, &RecordType, &RecordSegment, &RayPolygon, "box")
+			OverwriteRecord(ray, segment, &record, &RecordType, &RecordSegment, &RayPolygon, "box", &config.Test1, &config.Test2)
 		}
 
 		switch RecordType {

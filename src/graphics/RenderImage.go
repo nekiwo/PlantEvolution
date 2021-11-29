@@ -6,6 +6,7 @@ import (
 	"github.com/nekiwo/PlantEvolution/src/config"
 	"github.com/nekiwo/PlantEvolution/src/helpers"
 	"github.com/nekiwo/PlantEvolution/src/plant"
+	"math/rand"
 	"os"
 )
 
@@ -31,13 +32,20 @@ func RenderImage(data plant.Plant, rays [][][2]int, directory string, FileName s
 	}
 
 	for _, polygon := range rays {
-		hexcolor, _ := randomHex(3)
 		for i := 0; i < len(polygon) - 1; i++ {
+			hexcolor, _ := randomHex(3)
 			DrawSegment(draw, [2][2]int{
 				polygon[i],
 				polygon[i + 1],
-			}, "#ff9100", 2)
+			}, "#" + hexcolor, 2)
 		}
+	}
+
+	for i, point := range config.Test1 {
+		draw.SetHexColor(config.Test2[i])
+		draw.DrawPoint(float64(point[0]), float64(point[1]), 6)
+		draw.Fill()
+		draw.Stroke()
 	}
 
 	// Create directory
